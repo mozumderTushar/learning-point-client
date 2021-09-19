@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from './components/Home/Home/Home';
 import About from './components/About/About';
+import MoreSubject from './components/Home/MoreSubject/MoreSubject';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={ Home } />
+          <Route path="/more-subject" component={ MoreSubject } />
           <Route path="/about" component={ About } />
         </Switch>
       </Router>
