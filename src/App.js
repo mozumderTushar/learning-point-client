@@ -10,6 +10,8 @@ import Home from './components/Home/Home/Home';
 import About from './components/About/About';
 import MoreSubject from './components/Home/MoreSubject/MoreSubject';
 import ContactUs from './components/Shared/ContactUs/ContactUs';
+import Footer from './components/Shared/Footer/Footer';
+import Navigation from './components/Shared/Navigation/Navigation';
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
           <Route exact path="/" component={ Home } />
           <Route path="/more-subject" component={ MoreSubject } />
           <Route path="/about" component={ About } />
-          <Route path="/contact-us" component={ ContactUs } />
+          <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
         </Switch>
       </Router>
     </div>
