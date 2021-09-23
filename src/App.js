@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,6 +12,7 @@ import MoreSubject from './components/Home/MoreSubject/MoreSubject';
 import ContactUs from './components/Shared/ContactUs/ContactUs';
 import Footer from './components/Shared/Footer/Footer';
 import Navigation from './components/Shared/Navigation/Navigation';
+import SignIn from './components/SignIn/SignIn';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/" component={ Home } />
           <Route path="/more-subject" component={ MoreSubject } />
           <Route path="/about" component={ About } />
+          <Route path="/login" component={ SignIn } />
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
         </Switch>
       </Router>
