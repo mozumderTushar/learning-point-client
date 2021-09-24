@@ -19,6 +19,16 @@ import Navigation from '../Shared/Navigation/Navigation';
 const theme = createTheme();
 
 export default function SignIn() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+    e.target.reset();
+  };
 
   return (
     <div className="container-full">
@@ -40,7 +50,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
