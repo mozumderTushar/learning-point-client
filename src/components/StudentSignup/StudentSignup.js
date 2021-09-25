@@ -14,17 +14,52 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './StudentSignup.css';
 import Navigation from '../Shared/Navigation/Navigation';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const theme = createTheme();
 
 const StudentSignup = () => {
+  const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+
+    const firstName = data.get('firstName');
+    const lastName = data.get('lastName');
+    const email = data.get('email');
+    const password = data.get('password');
+
+    const user = {
+      firstName, lastName, email, password
+    }
+
+    fetch('http://localhost:2000/api/student-signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data);
+      alert('Success');
+      history.push('/');
+
+      if (data.status === 200) {
+        alert('Success');
+        history.push('/');
+        
+      } else {
+        if (data.status === 400) {
+          console.log(data.error);
+        }
+      }
+    })
     
     console.log({
-      firstname: data.get('firstName'),
-      lastname: data.get('lastName'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
