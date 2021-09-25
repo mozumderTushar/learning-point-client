@@ -13,6 +13,7 @@ import ContactUs from './components/Shared/ContactUs/ContactUs';
 import Footer from './components/Shared/Footer/Footer';
 import Navigation from './components/Shared/Navigation/Navigation';
 import SignIn from './components/SignIn/SignIn';
+import StudentSignup from './components/StudentSignup/StudentSignup';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/more-subject" component={ MoreSubject } />
           <Route path="/about" component={ About } />
           <Route path="/login" component={ SignIn } />
+          <Route path="/registration-student" component={ StudentSignup } />
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
         </Switch>
       </Router>
