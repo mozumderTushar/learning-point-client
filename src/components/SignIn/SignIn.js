@@ -14,15 +14,55 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './SignIn.css'
 import Navigation from '../Shared/Navigation/Navigation';
+import { UserContext } from '../../App';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 const theme = createTheme();
 
 export default function SignIn() {
+
+  const [loggedInUser, setLoggedInUser] = React.useContext(UserContext)
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     
+    const email = data.get('email');
+    const password =  data.get('password')
+    const user = {
+      email, password
+    }
+
+    fetch('http://localhost:2000/api/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      const { token, user } = data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      if (data.status === 200) {
+        const { token, user } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        history.replace(from);
+      } else {
+        if (data.status === 400) {
+          console.log(data.error);
+        }
+      }
+    })
+
     console.log({
       email: data.get('email'),
       password: data.get('password'),
