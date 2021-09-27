@@ -67,7 +67,7 @@ const StudentSignup = () => {
   };
   return (
     <div className="container-std">
-      <Navigation/>
+    <Navigation/>
     <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -83,7 +83,7 @@ const StudentSignup = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Student Sign up
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
