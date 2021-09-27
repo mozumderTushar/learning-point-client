@@ -28,12 +28,17 @@ const StudentSignup = () => {
     const lastName = data.get('lastName');
     const email = data.get('email');
     const password = data.get('password');
+    // const qualification = data.get('qualification');
+    // const subject = data.get('subject');
+    // const charge = data.get('charge');
+    // const time = data.get('time');
 
     const user = {
       firstName, lastName, email, password
     }
 
-    fetch('http://localhost:2000/api/student-signup', {
+    console.log(user);
+    fetch('http://localhost:2000/api/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -42,7 +47,6 @@ const StudentSignup = () => {
     })
     .then(response => response.json())
     .then(data => {
-      // console.log(data);
       alert('Success');
       history.push('/');
 
@@ -57,12 +61,6 @@ const StudentSignup = () => {
       }
     })
     
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
     e.target.reset();
   };
   return (
