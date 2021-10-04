@@ -35,7 +35,7 @@ const TeacherSignup = () => {
     const password = data.get('password');
 
     const user = {
-      firstName, lastName, email, password, qualification, subject, charge, time, contact
+      firstName, lastName, email, password, qualification, subject, charge, time, contact, role: "teacher"
     }
 
     console.log(user);

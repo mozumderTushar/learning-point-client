@@ -34,7 +34,7 @@ const StudentSignup = () => {
     // const time = data.get('time');
 
     const user = {
-      firstName, lastName, email, password
+      firstName, lastName, email, password, role: "student"
     }
 
     console.log(user);

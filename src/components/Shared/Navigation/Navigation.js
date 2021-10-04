@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import './Navigation.css';
 
 const Navigation = () => {
+  const userLoggedInSession = localStorage.getItem('user');
+  const [loggedIn, setLoggedIn] = useState(userLoggedInSession ? true : false)
+  console.log(loggedIn);
+  console.log(userLoggedInSession);
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    window.location.reload(true);
+  }
+
   const handleBurger = () => {
     document.querySelector(".hamburger-menu").classList.toggle("animate");
     document.querySelector(".nav__link").classList.toggle("nav__link__active");
@@ -21,24 +31,26 @@ const Navigation = () => {
 
             <NavLink className="mx-3" to="/" exact={ true }>Home</NavLink>
 
-
-            <NavLink className="mx-3" to="/blog">Blog</NavLink>
-
             <NavLink className="mx-3" to="/about">About</NavLink>
+
+            <NavLink className="mx-3" to="/dashboard">Dashboard</NavLink>
 
             <NavLink className="mx-3" to="/all-teacher">All Teacher</NavLink>
 
             <NavLink className="mx-3" to="/contact-us">Contact Us</NavLink>
 
-            <NavLink className="mx-3" to="/log-in">Log In</NavLink>
+            { !loggedIn ?
+              <NavLink className="mx-3" to="/log-in">Log In</NavLink> :
+              <Link className="mx-3" onClick={ handleLogOut } >Log Out</Link>
+            }
 
-            <Link className="navigationRight mx-3" to="/registration-student">
+            { loggedIn ? '' : <Link className="navigationRight mx-3" to="/registration-student">
               <Button>Join As Student</Button>
-            </Link>
+            </Link> }
 
-            <Link className="navigationRight mx-3" to="/registration-teacher">
+            { loggedIn ? '' : <Link className="navigationRight mx-3" to="/registration-teacher">
               <Button>Join As Teacher</Button>
-            </Link>
+            </Link> }
 
 
           </div>

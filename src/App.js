@@ -28,11 +28,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route path="/more-subject" component={ MoreSubject } />
-          <Route path="/about" component={ About } />
+          <PrivateRoute path="/about" component={ About } />
           <Route path="/log-in" component={ SignIn } />
           <Route path="/registration-student" component={ StudentSignup } />
           <Route path="/registration-teacher" component={ TeacherSignup } />
-          <PrivateRoute path="/dashboard" component={ Dashboard } />
+          <PrivateRoute path="/dashboard"> <Dashboard /> </PrivateRoute>
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
         </Switch>
       </Router>

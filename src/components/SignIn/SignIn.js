@@ -50,12 +50,15 @@ export default function SignIn() {
       const { token, user } = data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+      history.replace(from);
+      window.location.reload();
 
       if (data.status === 200) {
         const { token, user } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         history.replace(from);
+        history.push('/');
       } else {
         if (data.status === 400) {
           console.log(data.error);

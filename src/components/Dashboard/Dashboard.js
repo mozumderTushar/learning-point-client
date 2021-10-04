@@ -1,6 +1,7 @@
 import React from 'react';
 import './Dashboard.css';
-import userImg from '../../assets/arts.jpg'
+import userImg from '../../assets/arts.jpg';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   return (
@@ -8,31 +9,33 @@ const Dashboard = () => {
       <input type="checkbox" id="nav-toggle" />
       <div className="sidebar">
         <div className="sidebar-brand">
+          <Link to="/">
           <h2 className="white"><span className="fab fa-accusoft"></span><i>Learning</i> <span style={ { color: "#1dbf73" } }>Point</span></h2>
+          </Link>
         </div>
         <div className="sidebar-menu">
           <ul>
             <li><a href="" className="active"><span className="fas fa-igloo"></span>
               <span>Dashboard</span></a>
             </li>
-            <li><a href=""><span className="fas fa-users"></span>
-              <span>Customers</span></a>
+            <li><a href="/"><span className="fas fa-users"></span>
+              <span>Home</span></a>
             </li>
-            <li><a href=""><span className="fas fa-clipboard-list"></span>
-              <span>Projects</span></a>
+            <li><a href="/more-subject"><span className="fas fa-clipboard-list"></span>
+              <span>Subjects</span></a>
             </li>
-            <li><a href=""><span className="fas fa-igloo"></span>
-              <span>Orders</span></a>
+            <li><a href="/about"><span className="fas fa-igloo"></span>
+              <span>About</span></a>
             </li>
-            <li><a href=""><span className="fas fa-igloo"></span>
-              <span>Inventory</span></a>
+            <li><a href="contact-us"><span className="fas fa-igloo"></span>
+              <span>Contact Us</span></a>
             </li>
-            <li><a href=""><span className="fas fa-igloo"></span>
+            {/* <li><a href=""><span className="fas fa-igloo"></span>
               <span>Accounts</span></a>
             </li>
             <li><a href=""><span className="fas fa-igloo"></span>
               <span>Tasks</span></a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
