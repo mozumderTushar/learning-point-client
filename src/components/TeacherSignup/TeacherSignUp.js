@@ -19,7 +19,23 @@ import { PhotoCamera } from '@material-ui/icons';
 const theme = createTheme();
 
 const TeacherSignup = () => {
+  const [image, setImage] = React.useState("")
   const history = useHistory();
+
+  const uploadImage = (files) => {
+    const formData = new FormData()
+    formData.append('file', files[0])
+    formData.append('upload_preset', 'dyinef2d')
+
+    return fetch('https://api.cloudinary.com/v1_1/nabihamaher/image/upload', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => setImage(data.url))
+  }
+  console.log('image', image);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -35,7 +51,7 @@ const TeacherSignup = () => {
     const password = data.get('password');
 
     const user = {
-      firstName, lastName, email, password, qualification, subject, charge, time, contact, role: "teacher"
+      firstName, lastName, email, password, qualification, subject, charge, time, contact, role: "teacher", profilePicture: image
     }
 
     console.log(user);
@@ -68,26 +84,26 @@ const TeacherSignup = () => {
   return (
     <div className="container-teacher">
       <Navigation />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={ theme }>
         <Container component="main" maxWidth="l">
           <CssBaseline />
           <Box
-            sx={{
+            sx={ {
               marginTop: 5,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-            }}
+            } }
           >
-            <Avatar sx={{ m: 1, bgcolor: '#1dbf73' }}>
+            <Avatar sx={ { m: 1, bgcolor: '#1dbf73' } }>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Teacher Sign up
             </Typography>
-            <Box className="ml-md-5 mr-md-5" component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={4}>
+            <Box className="ml-md-5 mr-md-5" component="form" noValidate onSubmit={ handleSubmit } sx={ { mt: 3 } }>
+              <Grid container spacing={ 2 }>
+                <Grid item xs={ 12 } sm={ 4 }>
                   <TextField
                     autoComplete="fname"
                     name="firstName"
@@ -98,7 +114,7 @@ const TeacherSignup = () => {
                     autoFocus
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={ 12 } sm={ 4 }>
                   <TextField
                     required
                     fullWidth
@@ -108,7 +124,7 @@ const TeacherSignup = () => {
                     autoComplete="lname"
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={ 12 } sm={ 4 }>
                   <TextField
                     required
                     fullWidth
@@ -118,7 +134,7 @@ const TeacherSignup = () => {
                     autoComplete="email"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField
                     required
                     fullWidth
@@ -128,7 +144,7 @@ const TeacherSignup = () => {
                     autoComplete="qualification"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField required
                     fullWidth
                     id="subject"
@@ -153,7 +169,7 @@ const TeacherSignup = () => {
                     <MenuItem value="Civics">Civics</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField
                     required
                     fullWidth
@@ -163,7 +179,7 @@ const TeacherSignup = () => {
                     autoComplete="charge"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField
                     required
                     fullWidth
@@ -175,7 +191,7 @@ const TeacherSignup = () => {
                     autoComplete="time"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField
                     required
                     fullWidth
@@ -185,7 +201,7 @@ const TeacherSignup = () => {
                     autoComplete="contact"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                   <TextField
                     required
                     fullWidth
@@ -196,23 +212,25 @@ const TeacherSignup = () => {
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                <PhotoCamera className="camera" />
+                <Grid item xs={ 12 } sm={ 6 }>
+                  <PhotoCamera className="camera" />
                   <Button
                     containerElement='label'
                     label='My Label'>
-                    <input type="file" />
+                    <input type="file" onChange={ (e) => {
+                      uploadImage(e.target.files)
+                    } } />
                   </Button>
                 </Grid>
               </Grid>
-              <Button
-                style={{ margin: '30px auto 10px', display: "flex", width: " 300px" }}
+              { image.length > 0 ? <Button
+                style={ { margin: '30px auto 10px', display: "flex", width: " 300px" } }
                 type="submit"
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={ { mt: 3, mb: 2 } }
               >
                 Sign Up
-              </Button>
+              </Button> : '' }
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="#" variant="body2">

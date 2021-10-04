@@ -10,7 +10,7 @@ const Dashboard = () => {
       <div className="sidebar">
         <div className="sidebar-brand">
           <Link to="/">
-          <h2 className="white"><span className="fab fa-accusoft"></span><i>Learning</i> <span style={ { color: "#1dbf73" } }>Point</span></h2>
+            <h2 className="white"><span className="fab fa-accusoft"></span><i>Learning</i> <span style={ { color: "#1dbf73" } }>Point</span></h2>
           </Link>
         </div>
         <div className="sidebar-menu">
@@ -55,7 +55,7 @@ const Dashboard = () => {
           </div>
 
           <div className="user-wrapper">
-            <img src={userImg} width="30px" height="30px" alt="" />
+            <img src={ userImg } width="30px" height="30px" alt="" />
             <div>
               <h4>John Doe</h4>
               <small>Super Admin</small>
@@ -117,66 +117,66 @@ const Dashboard = () => {
                 </div>
                 <div className="card-body">
                   <div className="table-responsive">
-                  <table width="100%">
-                    <thead>
-                      <tr>
-                        <td>Project Title</td>
-                        <td>Department</td>
-                        <td>Status</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>UI/UX Design</td>
-                        <td>UI Team</td>
-                        <td>
-                          <span className="status purple"></span>
-                          review
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Web Development</td>
-                        <td>Frontend</td>
-                        <td>
-                          <span className="status pink"></span>
-                          in progress
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Ushop app</td>
-                        <td>UI Team</td>
-                        <td>
-                          <span className="status orange"></span>
-                          pending
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>UI/UX Design</td>
-                        <td>UI Team</td>
-                        <td>
-                          <span className="status purple"></span>
-                          review
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Web Development</td>
-                        <td>Frontend</td>
-                        <td>
-                          <span className="status pink"></span>
-                          in progress
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Ushop app</td>
-                        <td>UI Team</td>
-                        <td>
-                          <span className="status orange"></span>
-                          pending
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    <table width="100%">
+                      <thead>
+                        <tr>
+                          <td>Project Title</td>
+                          <td>Department</td>
+                          <td>Status</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>UI/UX Design</td>
+                          <td>UI Team</td>
+                          <td>
+                            <span className="status purple"></span>
+                            review
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Web Development</td>
+                          <td>Frontend</td>
+                          <td>
+                            <span className="status pink"></span>
+                            in progress
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Ushop app</td>
+                          <td>UI Team</td>
+                          <td>
+                            <span className="status orange"></span>
+                            pending
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>UI/UX Design</td>
+                          <td>UI Team</td>
+                          <td>
+                            <span className="status purple"></span>
+                            review
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Web Development</td>
+                          <td>Frontend</td>
+                          <td>
+                            <span className="status pink"></span>
+                            in progress
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Ushop app</td>
+                          <td>UI Team</td>
+                          <td>
+                            <span className="status orange"></span>
+                            pending
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -190,27 +190,11 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="customer">
                     <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="fas fa-user-circle"></span>
-                    <span className="fas fa-comment"></span>
-                    <span className="fas fa-phone"></span>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="customer">
-                    <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -222,27 +206,11 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="customer">
                     <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="fas fa-user-circle"></span>
-                    <span className="fas fa-comment"></span>
-                    <span className="fas fa-phone"></span>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="customer">
-                    <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -254,11 +222,11 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="customer">
                     <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -270,11 +238,11 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="customer">
                     <div className="info">
-                    <img src={userImg} width="40px" height="40px" alt="" />
-                    <div>
-                      <h4>Lewis S. Cunningham</h4>
-                      <small>CEO Excerpt</small>
-                    </div>
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -283,7 +251,39 @@ const Dashboard = () => {
                     <span className="fas fa-phone"></span>
                   </div>
                 </div>
-              </div>     
+                <div className="card-body">
+                  <div className="customer">
+                    <div className="info">
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="fas fa-user-circle"></span>
+                    <span className="fas fa-comment"></span>
+                    <span className="fas fa-phone"></span>
+                  </div>
+                </div>
+                <div className="card-body">
+                  <div className="customer">
+                    <div className="info">
+                      <img src={ userImg } width="40px" height="40px" alt="" />
+                      <div>
+                        <h4>Lewis S. Cunningham</h4>
+                        <small>CEO Excerpt</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="fas fa-user-circle"></span>
+                    <span className="fas fa-comment"></span>
+                    <span className="fas fa-phone"></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
