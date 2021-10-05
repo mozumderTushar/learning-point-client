@@ -17,6 +17,8 @@ import StudentSignup from './components/StudentSignup/StudentSignup';
 import Dashboard from './components/Dashboard/Dashboard';
 import PrivateRoute from './components/SignIn/PrivateRoute';
 import TeacherSignup from './components/TeacherSignup/TeacherSignUp';
+import AllTeachers from './components/AllTeachers/AllTeachers';
+import Details from './components/AllTeachers/Details';
 
 export const UserContext = React.createContext();
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/registration-teacher" component={ TeacherSignup } />
           <PrivateRoute path="/dashboard"> <Dashboard /> </PrivateRoute>
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
+          <Route path="/all-teacher"> <Navigation /> <AllTeachers /> <Footer /> </Route>
+          <Route path="/teacher-info/:teacherId"> <Navigation /> <Details /> <Footer /> </Route>
         </Switch>
       </Router>
     </UserContext.Provider>
