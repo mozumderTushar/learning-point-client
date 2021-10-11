@@ -30,9 +30,9 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    
+
     const email = data.get('email');
-    const password =  data.get('password')
+    const password = data.get('password')
     const user = {
       email, password
     }
@@ -44,90 +44,90 @@ export default function SignIn() {
       },
       body: JSON.stringify(user)
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      const { token, user } = data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      history.replace(from);
-      window.location.reload();
-
-      if (data.status === 200) {
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
         const { token, user } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         history.replace(from);
-        history.push('/');
-      } else {
-        if (data.status === 400) {
-          console.log(data.error);
+        window.location.reload();
+
+        if (data.status === 200) {
+          const { token, user } = data;
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          history.replace(from);
+          history.push('/');
+        } else {
+          if (data.status === 400) {
+            console.log(data.error);
+          }
         }
-      }
-    })
+      })
     e.target.reset();
   };
 
   return (
     <div className="container-full">
-    <Navigation/>
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: '#1dbf73' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+      <Navigation />
+      <ThemeProvider theme={ theme }>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={ {
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            } }
+          >
+            <Avatar sx={ { m: 1, bgcolor: '#1dbf73' } }>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" onSubmit={ handleSubmit } noValidate sx={ { mt: 1 } }>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={ { mt: 3, mb: 2 } }
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    { "Don't have an account? Sign Up" }
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }

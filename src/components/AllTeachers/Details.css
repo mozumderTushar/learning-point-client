@@ -28,6 +28,30 @@
   background-color:#1F2235
 }
 
+button.StripeCheckout {
+  width: 100%;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-content {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #000;
+  color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 20px;
+  outline: 0;
+}
+
 @media only screen and (min-width: 0px) and (max-width: 360px) {
   .about {
     height: 190vh;

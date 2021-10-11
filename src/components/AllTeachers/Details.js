@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Button } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal'
+import Modal from 'react-bootstrap/Modal';
+import StripeCheckout from 'react-stripe-checkout';
+import { useHistory } from 'react-router-dom';
 import './Details.css'
 
 function MyVerticallyCenteredModal(props) {
-  const handlePayment = () => {
+  const history = useHistory();
+  const handlePayment = (token, addresses) => {
     const user = JSON.parse(localStorage.getItem('user'));
     fetch('http://localhost:2000/api/stripe', {
       method: 'POST',
@@ -16,7 +19,7 @@ function MyVerticallyCenteredModal(props) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        history.push('/dashboard');
       })
   }
   return (
@@ -32,17 +35,18 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-        <Button variant="success" className="btn" onClick={ handlePayment }>PAYMENT</Button>{ ' ' }
+        <p>Its Demo Stripe</p>
+        <p>Card Number: 4242 4242 4242 4242 </p>
+        <p>Date: 04/24</p>
+        <p>CVC: 424</p>
+        <StripeCheckout
+          stripeKey="pk_test_51JjQkTLfYd9qUJL9e06uX342hrscQZyWkx6YLUV9FZfDZP7ZbPUwrOrvstEuFlNETfb1CJLC2vlBLUPOZahpzFrO00iJpf5pgI"
+          token={ handlePayment }
+        />
       </Modal.Body>
-      {/* <Modal.Footer>
-      <Button variant="success" className="btn" onClick={ props.onHide }>CLOSE</Button>{ ' ' }
-      </Modal.Footer> */}
+      <Modal.Footer>
+        <Button variant="success" className="btn" onClick={ props.onHide }>CLOSE</Button>{ ' ' }
+      </Modal.Footer>
     </Modal>
   );
 }
