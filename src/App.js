@@ -37,7 +37,7 @@ function App() {
           <PrivateRoute path="/dashboard"> <Dashboard /> </PrivateRoute>
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
           <Route path="/all-teacher"> <Navigation /> <AllTeachers /> <Footer /> </Route>
-          <Route path="/teacher-info/:teacherId"> <Navigation /> <Details /> <Footer /> </Route>
+          <PrivateRoute path="/teacher-info/:teacherId"> <Navigation /> <Details /> <Footer /> </PrivateRoute>
         </Switch>
       </Router>
     </UserContext.Provider>
