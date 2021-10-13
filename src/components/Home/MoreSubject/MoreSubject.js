@@ -12,6 +12,7 @@ import science from '../../../assets/science.jfif';
 import './MoreSubject.css';
 
 const MoreSubject = () => {
+ 
   return (
     <div className="subjectList">
         <div>
@@ -35,16 +36,16 @@ const MoreSubject = () => {
                 <h3>Business Tutors</h3>
                 <ul>
                   <li>
-                    <Link to='/'>Economics Tutors</Link>
+                    <Link to='/economics'>Economics Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Accounting Tutors</Link>
+                    <Link to='/accounting'>Accounting Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Marketing Tutors</Link>
+                    <Link to='/marketing'>Marketing Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Finance Tutors</Link>
+                    <Link to='/finance'>Finance Tutors</Link>
                   </li>
                 </ul>
               </CardContent>
@@ -64,16 +65,16 @@ const MoreSubject = () => {
                 <h3>Science Tutors</h3>
                 <ul>
                   <li>
-                    <Link to='/'>Physics Tutors</Link>
+                    <Link to='/physics'>Physics Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Chemistry Tutors</Link>
+                    <Link to='/chemistry'>Chemistry Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Higher Math Tutors</Link>
+                    <Link to='/higher-math'>Higher Math Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Biology Tutors</Link>
+                    <Link to='/biology'>Biology Tutors</Link>
                   </li>
                 </ul>
               </CardContent>
@@ -94,16 +95,16 @@ const MoreSubject = () => {
                 <h3>Humanities Tutors</h3>
                 <ul>
                   <li>
-                    <Link to='/'>HistoryTutors</Link>
+                    <Link to='/history'>HistoryTutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>English Tutors</Link>
+                    <Link to='/english'>English Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Geology Tutors</Link>
+                    <Link to='/geology'>Geology Tutors</Link>
                   </li>
                   <li>
-                    <Link to='/'>Civics Tutors</Link>
+                    <Link to='/civics'>Civics Tutors</Link>
                   </li>
                 </ul>
               </CardContent>

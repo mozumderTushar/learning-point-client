@@ -154,10 +154,10 @@ const TeacherSignup = () => {
                     select>
                     <MenuItem value="Physics" >Physics</MenuItem>
                     <MenuItem value="Chemistry">Chemistry</MenuItem>
-                    <MenuItem value="Higher Math">Higher Math</MenuItem>
+                    <MenuItem value="Higher-Math">Higher Math</MenuItem>
                     <MenuItem value="Biology">Biology</MenuItem>
-                    <MenuItem value="General Math">General Math</MenuItem>
-                    <MenuItem value="General Science">General Science</MenuItem>
+                    <MenuItem value="General-Math">General Math</MenuItem>
+                    <MenuItem value="General-Science">General Science</MenuItem>
                     <MenuItem value="ICT">ICT</MenuItem>
                     <MenuItem value="Economics">Economics</MenuItem>
                     <MenuItem value="Accounting">Accounting</MenuItem>

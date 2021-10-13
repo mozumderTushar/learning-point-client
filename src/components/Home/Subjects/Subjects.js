@@ -22,29 +22,29 @@ const Subjects = () => {
         <h2>Find your subject expert</h2>
         <h3>Get instant help for your questions.</h3>
         <div className='subject-list'>
-          <Link to="/subject/math" >
+          <Link to="/general-math" >
             <Button className="black" >
-              Math <ArrowRightAltIcon></ArrowRightAltIcon>
+              General Math <ArrowRightAltIcon></ArrowRightAltIcon>
             </Button>
           </Link>
-          <Link to="/subject/physics" >
+          <Link to="/physics" >
             <Button className="black">
               Physics <ArrowRightAltIcon></ArrowRightAltIcon>
             </Button>
           </Link>
-          <Link to="/subject/english" >
+          <Link to="/english" >
             <Button className="black">
               English <ArrowRightAltIcon></ArrowRightAltIcon>
             </Button>
           </Link>
-          <Link to="/subject/science" >
+          <Link to="/ict" >
             <Button className="black">
-              Science <ArrowRightAltIcon></ArrowRightAltIcon>
+              ICT <ArrowRightAltIcon></ArrowRightAltIcon>
             </Button>
           </Link>
-          <Link to="/subject/business" >
+          <Link to="/accounting" >
             <Button className="black">
-              Business <ArrowRightAltIcon></ArrowRightAltIcon>
+              Accounting <ArrowRightAltIcon></ArrowRightAltIcon>
             </Button>
           </Link>
           <Link to="/more-subject" >
