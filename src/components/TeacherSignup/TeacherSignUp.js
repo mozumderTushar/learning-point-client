@@ -233,7 +233,7 @@ const TeacherSignup = () => {
               </Button> : '' }
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/log-in" variant="body2" style={{textDecoration: "none"}}>
                     Already have an account? Sign in
                   </Link>
                 </Grid>

@@ -46,12 +46,15 @@ function App() {
           <Route exact path="/" component={ Home } />
           <Route path="/more-subject" component={ MoreSubject } />
           <PrivateRoute path="/about" component={ About } />
+         
           <Route path="/log-in" component={ SignIn } />
           <Route path="/registration-student" component={ StudentSignup } />
           <Route path="/registration-teacher" component={ TeacherSignup } />
+
           <PrivateRoute path="/dashboard"> <Dashboard /> </PrivateRoute>
           <Route path="/contact-us"> <Navigation /> <ContactUs /> <Footer /> </Route>
           <Route path="/all-teacher"> <Navigation /> <AllTeachers /> <Footer /> </Route>
+         
           <Route path="/general-math"> <Navigation /> <GeneralMath /> <Footer /> </Route>
           <Route path="/ict"> <Navigation /> <Ict /> <Footer /> </Route>
           <Route path="/physics"> <Navigation /> <Physics /> <Footer /> </Route>
@@ -66,6 +69,7 @@ function App() {
           <Route path="/economics"> <Navigation /> <Economics /> <Footer /> </Route>
           <Route path="/marketing"> <Navigation /> <Marketing /> <Footer /> </Route>
           <Route path="/finance"> <Navigation /> <Finance /> <Footer /> </Route>
+         
           <PrivateRoute path="/teacher-info/:teacherId"> <Navigation /> <Details /> <Footer /> </PrivateRoute>
         </Switch>
       </Router>
