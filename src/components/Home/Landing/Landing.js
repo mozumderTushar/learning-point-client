@@ -18,16 +18,16 @@ const Landing = () => {
           <div className="chip">
             <small>Popular :</small>
 
-            <Button onClick={() => history.push("/subject/math")}>
+            <Button onClick={() => history.push("/higher-math")}>
               Math
             </Button>
-            <Button onClick={() => history.push("/subject/physics")}>
+            <Button onClick={() => history.push("/physics")}>
               Physics
             </Button>
-            <Button onClick={() => history.push("/subject/accounting")}>
+            <Button onClick={() => history.push("/accounting")}>
               Accounting
             </Button>
-            <Button onClick={() => history.push("/subject/chemistry")}>
+            <Button onClick={() => history.push("/chemistry")}>
               Chemistry
             </Button>
           </div>
