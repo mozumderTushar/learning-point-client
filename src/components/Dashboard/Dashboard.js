@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import userImg from '../../assets/arts.jpg';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+  const [teacher, setTeacher] = useState([])
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    fetch('http://localhost:2000/api/all-teachers')
+      .then(response => response.json())
+      .then(data => setTeacher(data.teachers.slice(Math.floor(Math.random() * 11), Math.floor(Math.random() * 10) + 5)))
+  }, [])
+console.log(teacher);
   return (
     <div>
       <input type="checkbox" id="nav-toggle" />
@@ -30,10 +39,10 @@ const Dashboard = () => {
             <li><a href="contact-us"><span className="fas fa-igloo"></span>
               <span>Contact Us</span></a>
             </li>
-            {/* <li><a href=""><span className="fas fa-igloo"></span>
-              <span>Accounts</span></a>
+            <li><a href=""><span className="fas fa-sign-out-alt"></span>
+              <span>Log Out</span></a>
             </li>
-            <li><a href=""><span className="fas fa-igloo"></span>
+            {/* <li><a href=""><span className="fas fa-igloo"></span>
               <span>Tasks</span></a>
             </li> */}
           </ul>
@@ -43,7 +52,7 @@ const Dashboard = () => {
       <div className="main-content">
         <header>
           <h2>
-            <label for="nav-toggle">
+            <label htmlFor="nav-toggle">
               <span className="fas fa-bars"></span>
             </label>
             Dashboard
@@ -57,8 +66,8 @@ const Dashboard = () => {
           <div className="user-wrapper">
             <img src={ userImg } width="30px" height="30px" alt="" />
             <div>
-              <h4>John Doe</h4>
-              <small>Super Admin</small>
+              <h4>{ user.firstName } { user.lastName }</h4>
+              <small>{ user.email }</small>
             </div>
           </div>
         </header>
@@ -69,7 +78,7 @@ const Dashboard = () => {
             <div className="card-single">
               <div>
                 <h1>54</h1>
-                <span>Customers</span>
+                <span>Teachers</span>
               </div>
               <div>
                 <span className="fas fa-users"></span>
@@ -79,7 +88,7 @@ const Dashboard = () => {
             <div className="card-single">
               <div>
                 <h1>79</h1>
-                <span>Projects</span>
+                <span>Subjects</span>
               </div>
               <div>
                 <span className="fas fa-users"></span>
@@ -89,7 +98,7 @@ const Dashboard = () => {
             <div className="card-single">
               <div>
                 <h1>123</h1>
-                <span>Orders</span>
+                <span>Reserved Seat</span>
               </div>
               <div>
                 <span className="fas fa-users"></span>
@@ -99,7 +108,7 @@ const Dashboard = () => {
             <div className="card-single">
               <div>
                 <h1>$6k</h1>
-                <span>Income</span>
+                <span>Attended Class</span>
               </div>
               <div>
                 <span className="fas fa-google-wallet"></span>
@@ -183,11 +192,33 @@ const Dashboard = () => {
             <div className="customers">
               <div className="card">
                 <div className="card-header">
-                  <h3>New Teacher</h3>
+                  <h3>New Teachers</h3>
+                  <Link to='all-teacher'>
+                    <button>See all <span className="fas fa-arrow-right"></span></button>
+                  </Link>
+                </div>
+                {
+                  teacher.map(te => (
+                    <div className="card-body">
+                    <div className="customer">
+                      <div className="info">
+                        <img src={ userImg } width="40px" height="40px" alt="" />
+                        <div>
+                          <h4>{te.firstName} {te.lastName}</h4>
+                          <small>{te.subject}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="fas fa-user-circle"></span>
+                      <span className="fas fa-comment"></span>
+                      <span className="fas fa-phone"></span>
+                    </div>
+                  </div>
+                  ))
+                }
 
-                  <button>See all <span className="fas fa-arrow-right"></span></button>
-                </div>
-                <div className="card-body">
+                {/* <div className="card-body">
                   <div className="customer">
                     <div className="info">
                       <img src={ userImg } width="40px" height="40px" alt="" />
@@ -202,8 +233,8 @@ const Dashboard = () => {
                     <span className="fas fa-comment"></span>
                     <span className="fas fa-phone"></span>
                   </div>
-                </div>
-                <div className="card-body">
+                </div> */}
+                {/* <div className="card-body">
                   <div className="customer">
                     <div className="info">
                       <img src={ userImg } width="40px" height="40px" alt="" />
@@ -218,8 +249,8 @@ const Dashboard = () => {
                     <span className="fas fa-comment"></span>
                     <span className="fas fa-phone"></span>
                   </div>
-                </div>
-                <div className="card-body">
+                </div> */}
+                {/* <div className="card-body">
                   <div className="customer">
                     <div className="info">
                       <img src={ userImg } width="40px" height="40px" alt="" />
@@ -234,8 +265,8 @@ const Dashboard = () => {
                     <span className="fas fa-comment"></span>
                     <span className="fas fa-phone"></span>
                   </div>
-                </div>
-                <div className="card-body">
+                </div> */}
+                {/* <div className="card-body">
                   <div className="customer">
                     <div className="info">
                       <img src={ userImg } width="40px" height="40px" alt="" />
@@ -250,8 +281,8 @@ const Dashboard = () => {
                     <span className="fas fa-comment"></span>
                     <span className="fas fa-phone"></span>
                   </div>
-                </div>
-                <div className="card-body">
+                </div> */}
+                {/* <div className="card-body">
                   <div className="customer">
                     <div className="info">
                       <img src={ userImg } width="40px" height="40px" alt="" />
@@ -266,23 +297,7 @@ const Dashboard = () => {
                     <span className="fas fa-comment"></span>
                     <span className="fas fa-phone"></span>
                   </div>
-                </div>
-                <div className="card-body">
-                  <div className="customer">
-                    <div className="info">
-                      <img src={ userImg } width="40px" height="40px" alt="" />
-                      <div>
-                        <h4>Lewis S. Cunningham</h4>
-                        <small>CEO Excerpt</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="fas fa-user-circle"></span>
-                    <span className="fas fa-comment"></span>
-                    <span className="fas fa-phone"></span>
-                  </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

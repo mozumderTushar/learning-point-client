@@ -14,7 +14,6 @@ const AllTeachers = () => {
       .then(data => setTeacher(data.teachers))
   }, [])
 
-  console.log(teacher);
   return (
     <div className="container">
       <div className="row">

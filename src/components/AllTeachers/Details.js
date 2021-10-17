@@ -7,9 +7,12 @@ import { useHistory } from 'react-router-dom';
 import './Details.css'
 
 function MyVerticallyCenteredModal(props) {
+  const { teacherId } = useParams();
   const history = useHistory();
   const handlePayment = (token, addresses) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'))
+    user.teacherId = teacherId;
+    console.log(user);
     fetch('http://localhost:2000/api/stripe', {
       method: 'POST',
       headers: {
@@ -61,7 +64,7 @@ const Details = () => {
     fetch('http://localhost:2000/api/all-teachers')
       .then(res => res.json())
       .then(data => {
-        console.log(data.teachers);
+        // console.log(data.teachers);
         const details = data.teachers.find(data => data._id === teacherId)
         setInfo(details)
       })
