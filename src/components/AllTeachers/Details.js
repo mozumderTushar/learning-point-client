@@ -9,10 +9,25 @@ import './Details.css'
 function MyVerticallyCenteredModal(props) {
   const { teacherId } = useParams();
   const history = useHistory();
+  const [info, setInfo] = useState({})
+
+  useEffect(() => {
+    fetch('http://localhost:2000/api/all-teachers')
+      .then(res => res.json())
+      .then(data => {
+        const details = data.teachers.find(data => data._id === teacherId)
+        setInfo(details)
+      })
+  }, [])
+
   const handlePayment = (token, addresses) => {
     const user = JSON.parse(localStorage.getItem('user'))
     user.teacherId = teacherId;
+    user.teacherFirstName = info.firstName;
+    user.teacherLastName = info.lastName;
+    user.reservedSubject = info.subject;
     console.log(user);
+
     fetch('http://localhost:2000/api/stripe', {
       method: 'POST',
       headers: {
@@ -59,12 +74,10 @@ const Details = () => {
   const [info, setInfo] = useState({})
   const [modalShow, setModalShow] = React.useState(false);
 
-
   useEffect(() => {
     fetch('http://localhost:2000/api/all-teachers')
       .then(res => res.json())
       .then(data => {
-        // console.log(data.teachers);
         const details = data.teachers.find(data => data._id === teacherId)
         setInfo(details)
       })

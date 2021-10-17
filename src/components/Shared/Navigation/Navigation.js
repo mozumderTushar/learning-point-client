@@ -6,8 +6,6 @@ import './Navigation.css';
 const Navigation = () => {
   const userLoggedInSession = localStorage.getItem('user');
   const [loggedIn, setLoggedIn] = useState(userLoggedInSession ? true : false)
-  console.log(loggedIn);
-  console.log(userLoggedInSession);
 
   const handleLogOut = () => {
     localStorage.clear();
