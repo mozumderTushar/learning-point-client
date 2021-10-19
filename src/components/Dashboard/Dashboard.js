@@ -7,6 +7,9 @@ const Dashboard = () => {
   const [teacher, setTeacher] = useState([])
   const [tCount, setTcount] = useState([])
   const [tStripe, setTstripe] = useState([])
+  const [tStudent, setTstudent] = useState([])
+  const [isTeacher, setIsTeacher] = useState()
+  const [isStudent, setIsStudent] = useState()
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -28,6 +31,28 @@ const Dashboard = () => {
         setTstripe(total)
       })
   }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:2000/api/all-users')
+      .then(res => res.json())
+      .then(data => {
+        const teacher = data.info.filter(data => (data.role === 'teacher') && (data.email === user.email))
+        if (teacher) {
+          setIsTeacher(true)
+          setIsStudent(false)
+        }
+        const tStudent = data.info.filter(s => s.role === 'student')
+        setTstudent(tStudent)
+        const student = data.info.find(data => (data.role === 'student') && (data.email === user.email))
+        if (student) {
+          setIsTeacher(false)
+          setIsStudent(true)
+        }
+      })
+  }, [])
+
+  console.log('teacher', isTeacher);
+  console.log('student', isStudent);
 
   return (
     <div>
@@ -115,135 +140,138 @@ const Dashboard = () => {
               </div>
             </Link>
 
-            <div className="card-single">
-              <div>
-                <h1>{ tStripe.length }</h1>
-                <span>Reserved Seat</span>
+            {
+              isStudent &&
+              <div className="card-single">
+                <div>
+                  <h1>{ tStripe.length }</h1>
+                  <span>Reserved Seat</span>
+                </div>
+                <div>
+                  <span className="fas fa-users"></span>
+                </div>
               </div>
-              <div>
-                <span className="fas fa-users"></span>
-              </div>
-            </div>
+            }
 
-            <div className="card-single">
-              <div>
-                <h1>$6k</h1>
-                <span>Attended Class</span>
+            {
+              isTeacher &&
+              <div className="card-single">
+                <div>
+                  <h1>{ tStripe.length }</h1>
+                  <span>Requested Seat</span>
+                </div>
+                <div>
+                  <span className="fas fa-users"></span>
+                </div>
               </div>
-              <div>
-                <span className="fas fa-google-wallet"></span>
+            }
+
+            {
+              isStudent &&
+              <div className="card-single">
+                <div>
+                  <h1>$6k</h1>
+                  <span>Attended Class</span>
+                </div>
+                <div>
+                  <span className="fas fa-google-wallet"></span>
+                </div>
               </div>
-            </div>
+            }
+
+            {
+              isTeacher &&
+              <div className="card-single">
+                <div>
+                  <h1>{ tStudent.length }</h1>
+                  <span>Total Student</span>
+                </div>
+                <div>
+                  <span className="fas fa-google-wallet"></span>
+                </div>
+              </div>
+            }
+
           </div>
 
           <div className="recent-grid">
-            <div className="projects">
-              <div className="card">
-                <div className="card-header">
-                  <h2>Reserved Subjects</h2>
-                  <Link to='/more-subject'><button>Reserve More <span className="fas fa-arrow-right"></span></button></Link>
-                </div>
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <table width="100%">
-                      <thead>
-                        <tr>
-                          <td>Subject Title</td>
-                          <td>Teacher Name</td>
-                          <td>Status</td>
-                        </tr>
-                      </thead>
-                      {
-                        tStripe.map(t => (
-                          <tbody>
-                            <tr>
-                              <td>{t.reservedSubject}</td>
-                              <td>{t.teacherFirstName} {t.teacherLastName}</td>
-                              <td>
-                                <span className="status purple"></span>
-                                review
-                              </td>
-                            </tr>
-                          </tbody>
-                        ))
-                      }
-                    </table>
+            {
+              isStudent &&
+              <div className="projects">
+                <div className="card">
+                  <div className="card-header">
+                    <h2>Reserved Subjects</h2>
+                    <Link to='/more-subject'><button>Reserve More <span className="fas fa-arrow-right"></span></button></Link>
+                  </div>
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table width="100%">
+                        <thead>
+                          <tr>
+                            <td>Subject Title</td>
+                            <td>Teacher Name</td>
+                            <td>Contact Number</td>
+                          </tr>
+                        </thead>
+                        {
+                          tStripe.map(t => (
+                            <tbody>
+                              <tr>
+                                <td>{ t.reservedSubject }</td>
+                                <td>{ t.teacherFirstName } { t.teacherLastName }</td>
+                                <td>
+                                  <span className="status purple"></span>
+                                  { t.teacherContact }
+                                </td>
+                              </tr>
+                            </tbody>
+                          ))
+                        }
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <div className="projects">
-              <div className="card">
-                <div className="card-header">
-                  <h2>Reserved Subjects</h2>
+            }
 
-                  <button>See all <span className="fas fa-arrow-right"></span></button>
-                </div>
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <table width="100%">
-                      <thead>
-                        <tr>
-                          <td>Subject Title</td>
-                          <td>Teacher Name</td>
-                          <td>Status</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>UI/UX Design</td>
-                          <td>UI Team</td>
-                          <td>
-                            <span className="status purple"></span>
-                            review
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Web Development</td>
-                          <td>Frontend</td>
-                          <td>
-                            <span className="status pink"></span>
-                            in progress
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Ushop app</td>
-                          <td>UI Team</td>
-                          <td>
-                            <span className="status orange"></span>
-                            pending
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>UI/UX Design</td>
-                          <td>UI Team</td>
-                          <td>
-                            <span className="status purple"></span>
-                            review
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Web Development</td>
-                          <td>Frontend</td>
-                          <td>
-                            <span className="status pink"></span>
-                            in progress
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Ushop app</td>
-                          <td>UI Team</td>
-                          <td>
-                            <span className="status orange"></span>
-                            pending
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+            {
+              isTeacher &&
+              <div className="projects">
+                <div className="card">
+                  <div className="card-header">
+                    <h2>Requested Student</h2>
+                  </div>
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table width="100%">
+                        <thead>
+                          <tr>
+                            <td>Student Name</td>
+                            <td>Subject</td>
+                            <td>Contact Number</td>
+                          </tr>
+                        </thead>
+                        {
+                          tStripe.map(t => (
+                            <tbody>
+                              <tr>
+                                <td>{ t.reservedSubject }</td>
+                                <td>{ t.teacherFirstName } { t.teacherLastName }</td>
+                                <td>
+                                  <span className="status purple"></span>
+                                  { t.teacherContact }
+                                </td>
+                              </tr>
+                            </tbody>
+                          ))
+                        }
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div> */}
+            }
+
             <div className="customers">
               <div className="card">
                 <div className="card-header">

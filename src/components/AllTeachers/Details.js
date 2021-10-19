@@ -25,8 +25,8 @@ function MyVerticallyCenteredModal(props) {
     user.teacherId = teacherId;
     user.teacherFirstName = info.firstName;
     user.teacherLastName = info.lastName;
+    user.teacherContact = info.contact;
     user.reservedSubject = info.subject;
-    console.log(user);
 
     fetch('http://localhost:2000/api/stripe', {
       method: 'POST',
@@ -72,7 +72,7 @@ function MyVerticallyCenteredModal(props) {
 const Details = () => {
   const { teacherId } = useParams();
   const [info, setInfo] = useState({})
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     fetch('http://localhost:2000/api/all-teachers')
