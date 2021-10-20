@@ -280,6 +280,11 @@ tr td:last-child{
   margin-left: .5rem;
   color: var(--main-color);
 }
+.btn_meet{
+  background: var(--main-color);
+  border: none;
+  font-family: 'Poppins', sans-serif;
+}
 
 @media only screen and (max-width:1200px){
   .sidebar{

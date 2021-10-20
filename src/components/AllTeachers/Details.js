@@ -19,12 +19,13 @@ function MyVerticallyCenteredModal(props) {
         setInfo(details)
       })
   }, [])
-
+console.log(info.email);
   const handlePayment = (token, addresses) => {
     const user = JSON.parse(localStorage.getItem('user'))
     user.teacherId = teacherId;
     user.teacherFirstName = info.firstName;
     user.teacherLastName = info.lastName;
+    user.teacherEmail = info.email;
     user.teacherContact = info.contact;
     user.reservedSubject = info.subject;
 

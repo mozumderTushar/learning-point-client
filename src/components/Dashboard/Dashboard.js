@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import userImg from '../../assets/arts.jpg';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const Dashboard = () => {
   const [teacher, setTeacher] = useState([])
+  const [teacherInfo, setTeacherInfo] = useState([])
   const [tCount, setTcount] = useState([])
   const [tStripe, setTstripe] = useState([])
   const [tStudent, setTstudent] = useState([])
   const [isTeacher, setIsTeacher] = useState()
   const [isStudent, setIsStudent] = useState()
+  const history = useHistory();
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -28,10 +32,12 @@ const Dashboard = () => {
       .then(data => {
         console.log(data.info);
         const total = data.info.filter(num => num.email === user.email)
+        const teacherInfo = data.info.filter(num => num.teacherEmail === user.email)
         setTstripe(total)
+        setTeacherInfo(teacherInfo)
       })
   }, [])
-
+  console.log(tStripe);
   useEffect(() => {
     fetch('http://localhost:2000/api/all-users')
       .then(res => res.json())
@@ -51,8 +57,11 @@ const Dashboard = () => {
       })
   }, [])
 
-  console.log('teacher', isTeacher);
-  console.log('student', isStudent);
+  const handleLogOut = () => {
+    localStorage.clear();
+    history.push('/');
+    window.location.reload(true);
+  }
 
   return (
     <div>
@@ -81,7 +90,7 @@ const Dashboard = () => {
               <span>Contact Us</span></a>
             </li>
             <li><a href=""><span className="fas fa-sign-out-alt"></span>
-              <span>Log Out</span></a>
+              <span onClick={ handleLogOut }>Log Out</span></a>
             </li>
             {/* <li><a href=""><span className="fas fa-igloo"></span>
               <span>Tasks</span></a>
@@ -157,7 +166,7 @@ const Dashboard = () => {
               isTeacher &&
               <div className="card-single">
                 <div>
-                  <h1>{ tStripe.length }</h1>
+                  <h1>{ teacherInfo.length }</h1>
                   <span>Requested Seat</span>
                 </div>
                 <div>
@@ -248,19 +257,20 @@ const Dashboard = () => {
                           <tr>
                             <td>Student Name</td>
                             <td>Subject</td>
-                            <td>Contact Number</td>
+                            <td>Email</td>
                           </tr>
                         </thead>
                         {
-                          tStripe.map(t => (
+                          teacherInfo.map(t => (
                             <tbody>
                               <tr>
-                                <td>{ t.reservedSubject }</td>
-                                <td>{ t.teacherFirstName } { t.teacherLastName }</td>
+                                <td>{ t.firstName } { t.lastName }</td>
+                                <td>{ t.reservedSubject } </td>
                                 <td>
                                   <span className="status purple"></span>
-                                  { t.teacherContact }
+                                  { t.email }
                                 </td>
+                                <td><Button variant="success" className="btn_meet">Link</Button>{ ' ' }</td>
                               </tr>
                             </tbody>
                           ))
