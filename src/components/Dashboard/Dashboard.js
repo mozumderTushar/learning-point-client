@@ -4,6 +4,13 @@ import userImg from '../../assets/arts.jpg';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 const Dashboard = () => {
   const [teacher, setTeacher] = useState([])
@@ -13,6 +20,9 @@ const Dashboard = () => {
   const [tStudent, setTstudent] = useState([])
   const [isTeacher, setIsTeacher] = useState()
   const [isStudent, setIsStudent] = useState()
+  const [emailInfo, setEmailInfo] = useState('');
+  const [open, setOpen] = React.useState(false);
+
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -37,7 +47,7 @@ const Dashboard = () => {
         setTeacherInfo(teacherInfo)
       })
   }, [])
-  console.log(tStripe);
+
   useEffect(() => {
     fetch('http://localhost:2000/api/all-users')
       .then(res => res.json())
@@ -47,8 +57,10 @@ const Dashboard = () => {
           setIsTeacher(true)
           setIsStudent(false)
         }
+
         const tStudent = data.info.filter(s => s.role === 'student')
         setTstudent(tStudent)
+        
         const student = data.info.find(data => (data.role === 'student') && (data.email === user.email))
         if (student) {
           setIsTeacher(false)
@@ -57,10 +69,32 @@ const Dashboard = () => {
       })
   }, [])
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = (email) => {
+    setOpen(true);
+    setEmailInfo(email)
+  }
+
   const handleLogOut = () => {
     localStorage.clear();
     history.push('/');
     window.location.reload(true);
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    const meet_link = data.get('link');
+    const studentEmail = emailInfo;
+    const user = {
+      meet_link, studentEmail
+    }
+    console.log(user);
   }
 
   return (
@@ -262,7 +296,7 @@ const Dashboard = () => {
                         </thead>
                         {
                           teacherInfo.map(t => (
-                            <tbody>
+                            <tbody key={ t._id }>
                               <tr>
                                 <td>{ t.firstName } { t.lastName }</td>
                                 <td>{ t.reservedSubject } </td>
@@ -270,7 +304,32 @@ const Dashboard = () => {
                                   <span className="status purple"></span>
                                   { t.email }
                                 </td>
-                                <td><Button variant="success" className="btn_meet">Link</Button>{ ' ' }</td>
+                                <td><Button variant="success" className="btn_meet" onClick={ () => handleClick(t.email) }>Link</Button>{ ' ' }</td>
+                              </tr>
+                              <tr>
+                                <Dialog component="form" onSubmit={ handleSubmit } open={ open } onClose={ handleClose }>
+                                  <DialogTitle>Class Link</DialogTitle>
+                                  <DialogContent>
+                                    <DialogContentText>
+                                      To conduct class with this student, please enter your google meet link here. We
+                                      will send updates to the students.
+                                    </DialogContentText>
+                                    <TextField
+                                      autoFocus
+                                      margin="dense"
+                                      id="link"
+                                      name="link"
+                                      label="Meet Link"
+                                      type="text"
+                                      fullWidth
+                                      variant="standard"
+                                    />
+                                    <DialogActions>
+                                      <Button className="btn_meet" onClick={ handleClose }>Cancel</Button>
+                                      <Button className="btn_meet" type="submit" onClick={ handleClose }>Send</Button>
+                                    </DialogActions>
+                                  </DialogContent>
+                                </Dialog>
                               </tr>
                             </tbody>
                           ))
