@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [isTeacher, setIsTeacher] = useState()
   const [isStudent, setIsStudent] = useState()
   const [emailInfo, setEmailInfo] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -40,7 +40,6 @@ const Dashboard = () => {
     fetch('http://localhost:2000/api/stripe-info')
       .then(response => response.json())
       .then(data => {
-        console.log(data.info);
         const total = data.info.filter(num => num.email === user.email)
         const teacherInfo = data.info.filter(num => num.teacherEmail === user.email)
         setTstripe(total)
@@ -60,7 +59,7 @@ const Dashboard = () => {
 
         const tStudent = data.info.filter(s => s.role === 'student')
         setTstudent(tStudent)
-        
+
         const student = data.info.find(data => (data.role === 'student') && (data.email === user.email))
         if (student) {
           setIsTeacher(false)
@@ -85,16 +84,37 @@ const Dashboard = () => {
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => { /**teacher modal meet link */
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
 
     const meet_link = data.get('link');
     const studentEmail = emailInfo;
+    const teacherFirstName = loggedInUser.firstName;
+    const teacherLastName = loggedInUser.lastName;
+    const teacherEmail = loggedInUser.email;
+    const bookedSubject = loggedInUser.subject;
+    const preferredTime = loggedInUser.time;
+    const meetLinkSend = 'done';
+
     const user = {
-      meet_link, studentEmail
+      meet_link, studentEmail, teacherFirstName, teacherLastName, teacherEmail, bookedSubject, preferredTime, meetLinkSend
     }
-    console.log(user);
+
+    fetch('http://localhost:2000/api/meet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('Success')
+        history.push('/dashboard');
+      })
+
   }
 
   return (
