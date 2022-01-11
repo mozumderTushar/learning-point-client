@@ -21,6 +21,10 @@ const Dashboard = () => {
   const [isTeacher, setIsTeacher] = useState()
   const [isStudent, setIsStudent] = useState()
   const [emailInfo, setEmailInfo] = useState('');
+  const [isAdmin, setIsAdmin] = useState();
+  const [adminInfo, setAdminInfo] = useState([]);
+  const [studentRequest, setStudentRequest] = useState([]);
+  const [approvedByAdmin, setApprovedByAdmin] = useState([]);
   const [open, setOpen] = useState(false);
 
   const history = useHistory();
@@ -41,9 +45,21 @@ const Dashboard = () => {
       .then(response => response.json())
       .then(data => {
         const total = data.info.filter(num => num.email === user.email)
+        setStudentRequest(data.info)
         const teacherInfo = data.info.filter(num => num.teacherEmail === user.email)
+        const adminDetails = data.info.filter(num => num.email === user.email)
         setTstripe(total)
         setTeacherInfo(teacherInfo)
+        setAdminInfo(adminDetails)
+      })
+  }, [])
+ 
+  useEffect(() => {
+    fetch('http://localhost:2000/api/approved-info')
+      .then(response => response.json())
+      .then(data => {
+        const teacherInfo = data.info.filter(num => num.teacherEmail === user.email)
+        setApprovedByAdmin(teacherInfo)
       })
   }, [])
 
@@ -55,6 +71,7 @@ const Dashboard = () => {
         if (teacher) {
           setIsTeacher(true)
           setIsStudent(false)
+          setIsAdmin(false)
         }
 
         const tStudent = data.info.filter(s => s.role === 'student')
@@ -64,6 +81,14 @@ const Dashboard = () => {
         if (student) {
           setIsTeacher(false)
           setIsStudent(true)
+          setIsAdmin(false)
+        }
+
+        const admin = data.info.find(data => (data.role === 'admin') && (data.email === user.email))
+        if (admin) {
+          setIsTeacher(false)
+          setIsStudent(false)
+          setIsAdmin(true)
         }
       })
   }, [])
@@ -77,12 +102,41 @@ const Dashboard = () => {
     setEmailInfo(email)
   }
 
+  const handleAdminClick = (id, tId, tEmail, sName, sEmail, sub) => {
+    console.log(id);
+    console.log(tId);
+    console.log(tEmail);
+
+    const approvedId = id;
+    const teacherEmail = tEmail;
+    const teacherId = tId;
+    const studentName = sName;
+    const studentEmail = sEmail;
+    const subject = sub;
+
+    const user = {
+      approvedId, teacherEmail, teacherId, studentName, studentEmail, subject
+    }
+
+    fetch('http://localhost:2000/api/approved', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('Success')
+        history.push('/dashboard');
+      })
+  }
+
   const handleLogOut = () => {
     localStorage.clear();
     history.push('/');
     window.location.reload(true);
   }
-
 
   const handleSubmit = (e) => { /**teacher modal meet link */
     e.preventDefault();
@@ -315,14 +369,14 @@ const Dashboard = () => {
                           </tr>
                         </thead>
                         {
-                          teacherInfo.map(t => (
+                          approvedByAdmin.map(t => (
                             <tbody key={ t._id }>
                               <tr>
-                                <td>{ t.firstName } { t.lastName }</td>
-                                <td>{ t.reservedSubject } </td>
+                                <td>{ t.studentName }</td>
+                                <td>{ t.subject } </td>
                                 <td>
                                   <span className="status purple"></span>
-                                  { t.email }
+                                  { t.studentEmail }
                                 </td>
                                 <td><Button variant="success" className="btn_meet" onClick={ () => handleClick(t.email) }>Link</Button>{ ' ' }</td>
                               </tr>
@@ -361,36 +415,82 @@ const Dashboard = () => {
               </div>
             }
 
-            <div className="customers">
-              <div className="card">
-                <div className="card-header">
-                  <h3>New Teachers</h3>
-                  <Link to='all-teacher'>
-                    <button>See all <span className="fas fa-arrow-right"></span></button>
-                  </Link>
-                </div>
-                {
-                  teacher.map(te => (
-                    <div className="card-body" key={ te._id }>
-                      <div className="customer">
-                        <div className="info">
-                          <img src={ userImg } width="40px" height="40px" alt="" />
+            {
+              isStudent && isTeacher ?
+                <div className="customers">
+                  <div className="card">
+                    <div className="card-header">
+                      <h3>New Teachers</h3>
+                      <Link to='all-teacher'>
+                        <button>See all <span className="fas fa-arrow-right"></span></button>
+                      </Link>
+                    </div>
+                    {
+                      teacher.map(te => (
+                        <div className="card-body" key={ te._id }>
+                          <div className="customer">
+                            <div className="info">
+                              <img src={ userImg } width="40px" height="40px" alt="" />
+                              <div>
+                                <h4>{ te.firstName } { te.lastName }</h4>
+                                <small>{ te.subject }</small>
+                              </div>
+                            </div>
+                          </div>
                           <div>
-                            <h4>{ te.firstName } { te.lastName }</h4>
-                            <small>{ te.subject }</small>
+                            <span className="fas fa-user-circle"></span>
+                            <span className="fas fa-comment"></span>
+                            <span className="fas fa-phone"></span>
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        <span className="fas fa-user-circle"></span>
-                        <span className="fas fa-comment"></span>
-                        <span className="fas fa-phone"></span>
-                      </div>
+                      ))
+                    }
+                  </div>
+                </div>
+                : ''
+            }
+
+
+            {
+              isAdmin &&
+              <div className="projects">
+                <div className="card">
+                  <div className="card-header">
+                    <h2>Request From Student</h2>
+                  </div>
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table width="100%">
+                        <thead>
+                          <tr>
+                            <td>Student Name</td>
+                            <td>Subject</td>
+                            <td>Email</td>
+                          </tr>
+                        </thead>
+                        {
+                          studentRequest.map(t => (
+                            <tbody key={ t._id }>
+                              <tr>
+                                <td>{ t.firstName } { t.lastName }</td>
+                                <td>{ t.reservedSubject } </td>
+                                <td>
+                                  <span className="status purple"></span>
+                                  { t.email }
+                                </td>
+                                <td><Button variant="success" className="btn_meet" onClick={ () => handleAdminClick(t._id, t.teacherId, t.teacherEmail, t.firstName, t.email, t.reservedSubject ) }>Approve</Button>{ ' ' }</td>
+                                <td><Button variant="danger" className="" onClick={ () => handleAdminClick(t._id) }>X</Button>{ ' ' }</td>
+                              </tr>
+                            </tbody>
+                          ))
+                        }
+                      </table>
                     </div>
-                  ))
-                }
+                  </div>
+                </div>
               </div>
-            </div>
+            }
+
           </div>
 
         </main>
