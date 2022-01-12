@@ -53,7 +53,7 @@ const Dashboard = () => {
         setAdminInfo(adminDetails)
       })
   }, [])
- 
+
   useEffect(() => {
     fetch('http://localhost:2000/api/approved-info')
       .then(response => response.json())
@@ -103,9 +103,6 @@ const Dashboard = () => {
   }
 
   const handleAdminClick = (id, tId, tEmail, sName, sEmail, sub) => {
-    console.log(id);
-    console.log(tId);
-    console.log(tEmail);
 
     const approvedId = id;
     const teacherEmail = tEmail;
@@ -129,6 +126,17 @@ const Dashboard = () => {
       .then(data => {
         alert('Success')
         history.push('/dashboard');
+      })
+
+    fetch(`http://localhost:2000/api/delete/${ id }`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result) {
+          console.log(result)
+          window.location.reload(true)
+        }
       })
   }
 
@@ -169,6 +177,19 @@ const Dashboard = () => {
         history.push('/dashboard');
       })
 
+  }
+
+  const deleteEvent = (id) => { /* delete api*/
+    fetch(`http://localhost:2000/api/delete/${ id }`, {
+      method: 'DELETE'
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result) {
+          console.log(result)
+          window.location.reload(true)
+        }
+      })
   }
 
   return (
@@ -478,8 +499,8 @@ const Dashboard = () => {
                                   <span className="status purple"></span>
                                   { t.email }
                                 </td>
-                                <td><Button variant="success" className="btn_meet" onClick={ () => handleAdminClick(t._id, t.teacherId, t.teacherEmail, t.firstName, t.email, t.reservedSubject ) }>Approve</Button>{ ' ' }</td>
-                                <td><Button variant="danger" className="" onClick={ () => handleAdminClick(t._id) }>X</Button>{ ' ' }</td>
+                                <td><Button variant="success" className="btn_meet" onClick={ () => handleAdminClick(t._id, t.teacherId, t.teacherEmail, t.firstName, t.email, t.reservedSubject) }>Approve</Button>{ ' ' }</td>
+                                <td><Button variant="danger" className="" onClick={ () => deleteEvent(t._id) }>X</Button>{ ' ' }</td>
                               </tr>
                             </tbody>
                           ))
