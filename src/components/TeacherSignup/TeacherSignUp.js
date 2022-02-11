@@ -85,7 +85,7 @@ const TeacherSignup = () => {
     <div className="container-teacher">
       <Navigation />
       <ThemeProvider theme={ theme }>
-        <Container component="main" maxWidth="l">
+        <div component="main" maxWidth="l">
           <CssBaseline />
           <Box
             sx={ {
@@ -240,7 +240,7 @@ const TeacherSignup = () => {
               </Grid>
             </Box>
           </Box>
-        </Container>
+        </div>
       </ThemeProvider>
     </div>
   );

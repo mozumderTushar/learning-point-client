@@ -8,8 +8,8 @@ const About = () => {
   return (
     <React.Fragment>
     <Navigation></Navigation>
-      <div className="about">
-        <h3 className="text-center">About Us</h3>
+      <div>
+        <h3 className="about-us text-center pt-5 pb-5">About Us</h3>
       </div>
       <div className="about-image">
         <img src={img} alt="" />

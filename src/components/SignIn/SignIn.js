@@ -67,7 +67,7 @@ export default function SignIn() {
     <div className="container-full">
       <Navigation />
       <ThemeProvider theme={ theme }>
-        <Container component="main" maxWidth="xs">
+        <div component="main" maxWidth="xs">
           <CssBaseline />
           <Box
             sx={ {
@@ -121,7 +121,7 @@ export default function SignIn() {
               </Grid>
             </Box>
           </Box>
-        </Container>
+        </div>
       </ThemeProvider>
     </div>
   );
