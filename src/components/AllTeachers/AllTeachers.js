@@ -23,7 +23,7 @@ const AllTeachers = () => {
               <div className="card all_teacher" >
                 <img className="card-img-top card_img" src={ te.profilePicture } alt="image" />
                 <div className="card-body">
-                  <h2 className="card-title">{`${(te.firstName + " " + te.lastName).slice(0,25)}`}</h2>
+                  <h2 className="card-title">{`${(te.firstName + " " + te.lastName).slice(0,15)}`}</h2>
                   <div className="d-flex justify-content-between">
                     <h5>{ te.subject.slice(0,13) }</h5>
                     <h5>TIME: { te.time }</h5>

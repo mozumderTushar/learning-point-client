@@ -10,6 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Moment from 'react-moment';
 
 
 const Dashboard = () => {
@@ -23,9 +24,11 @@ const Dashboard = () => {
   const [emailInfo, setEmailInfo] = useState('');
   const [isAdmin, setIsAdmin] = useState();
   const [adminInfo, setAdminInfo] = useState([]);
+  const [studentInfo, setStudentInfo] = useState([]);
   const [studentRequest, setStudentRequest] = useState([]);
   const [approvedByAdmin, setApprovedByAdmin] = useState([]);
   const [open, setOpen] = useState(false);
+  const [aid, setId] = useState('');
 
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem('user'));
@@ -62,6 +65,16 @@ const Dashboard = () => {
         setApprovedByAdmin(teacherInfo)
       })
   }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:2000/api/meet-info')
+      .then(response => response.json())
+      .then(data => {
+        const studentInfo = data.info.filter(num => num.studentEmail === user.email)
+        setStudentInfo(studentInfo)
+      })
+  }, [])
+
 
   useEffect(() => {
     fetch('http://localhost:2000/api/all-users')
@@ -103,6 +116,8 @@ const Dashboard = () => {
   }
 
   const handleAdminClick = (id, tId, tEmail, sName, sEmail, sub) => {
+
+    setId(id);
 
     const approvedId = id;
     const teacherEmail = tEmail;
@@ -333,6 +348,47 @@ const Dashboard = () => {
           </div>
 
           <div className="recent-grid">
+
+            {
+              isStudent &&
+              <div className="projects">
+                <div className="card">
+                  <div className="card-header">
+                    <h2>Notifications</h2>
+
+                  </div>
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table width="100%">
+                        <thead>
+                          <tr>
+                            <td>Link</td>
+                            <td>Teacher Name</td>
+                            <td>Time</td>
+                          </tr>
+                        </thead>
+                        {
+                          studentInfo.map(t => (
+                            <tbody>
+                              <tr>
+                                <td>{ t.meet_link }</td>
+                                <td>{ t.teacherFirstName } { t.teacherLastName }</td>
+                                <td>
+                                  <span className="status purple"></span>
+                                  { t.preferredTime }
+                                </td>
+                              </tr>
+                            </tbody>
+                          ))
+                        }
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            }
             {
               isStudent &&
               <div className="projects">
@@ -370,7 +426,11 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
+
+
             }
+
+
 
             {
               isTeacher &&
@@ -384,6 +444,7 @@ const Dashboard = () => {
                       <table width="100%">
                         <thead>
                           <tr>
+                          <td>Date</td>
                             <td>Student Name</td>
                             <td>Subject</td>
                             <td>Email</td>
@@ -393,13 +454,14 @@ const Dashboard = () => {
                           approvedByAdmin.map(t => (
                             <tbody key={ t._id }>
                               <tr>
+                              <td> <Moment format="YYYY/MM/DD">{ t.createdAt }</Moment> </td>
                                 <td>{ t.studentName }</td>
                                 <td>{ t.subject } </td>
                                 <td>
                                   <span className="status purple"></span>
                                   { t.studentEmail }
                                 </td>
-                                <td><Button variant="success" className="btn_meet" onClick={ () => handleClick(t.email) }>Link</Button>{ ' ' }</td>
+                                <td><Button variant="success" className="btn_meet" onClick={ () => handleClick(t.studentEmail) }>Link</Button>{ ' ' }</td>
                               </tr>
                               <tr>
                                 <Dialog component="form" onSubmit={ handleSubmit } open={ open } onClose={ handleClose }>
