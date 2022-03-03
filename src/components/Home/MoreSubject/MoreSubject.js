@@ -33,7 +33,7 @@ const MoreSubject = () => {
                 alt="green iguana"
               />
               <CardContent>
-                <h3>Business Tutors</h3>
+                <h3 className="more-sub">Business Tutors</h3>
                 <ul>
                   <li>
                     <Link to='/economics'>Economics Tutors</Link>
@@ -62,7 +62,7 @@ const MoreSubject = () => {
                 alt="green iguana"
               />
               <CardContent>
-                <h3>Science Tutors</h3>
+                <h3 className="more-sub">Science Tutors</h3>
                 <ul>
                   <li>
                     <Link to='/physics'>Physics Tutors</Link>
@@ -92,7 +92,7 @@ const MoreSubject = () => {
                 alt="green iguana"
               />
               <CardContent>
-                <h3>Humanities Tutors</h3>
+                <h3 className="more-sub">Humanities Tutors</h3>
                 <ul>
                   <li>
                     <Link to='/history'>HistoryTutors</Link>

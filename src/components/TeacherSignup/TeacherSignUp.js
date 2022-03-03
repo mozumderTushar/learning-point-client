@@ -101,7 +101,7 @@ const TeacherSignup = () => {
             <Typography component="h1" variant="h5">
               Teacher Sign up
             </Typography>
-            <Box className="ml-md-5 mr-md-5" component="form" noValidate onSubmit={ handleSubmit } sx={ { mt: 3 } }>
+            <Box className="ml-md-5 mr-md-5" component="form" onSubmit={ handleSubmit } sx={ { mt: 3 } }>
               <Grid container spacing={ 2 }>
                 <Grid item xs={ 12 } sm={ 4 }>
                   <TextField

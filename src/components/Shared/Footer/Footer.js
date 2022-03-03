@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="footer-distributed">
       <div className="footer-left">
-        <h3>
+        <h3 className="footer-title">
           Learning<span>Point</span>
         </h3>
 
@@ -17,7 +17,7 @@ const Footer = () => {
           <a href="#">Privacy Policy</a>·<a href="#">About Us</a>
         </p>
 
-        <p className="footer-company-name">LearningPoint.com &copy; 2020</p>
+        <p className="footer-company-name">LearningPoint.com &copy; 2022</p>
       </div>
       <div className="footer-center">
         <div>

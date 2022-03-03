@@ -35,7 +35,7 @@ footer {
   width: 40%;
 }
 
-.footer-distributed h3 {
+.footer-distributed .footer-title {
   color: #ffffff;
   font-size: 26px;
   /* font-family: 'SF Pro Display', sans-serif; apple website font// not imported*/
@@ -43,7 +43,7 @@ footer {
   margin: 0;
 }
 
-.footer-distributed h3 span {
+.footer-distributed .footer-title span {
   color: #1dbf73;
 }
 
