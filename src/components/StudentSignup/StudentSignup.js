@@ -9,19 +9,71 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Controls from "../Controls/Controls";
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useForm, Form } from '../FormMaterialUi/useForm';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './StudentSignup.css';
 import Navigation from '../Shared/Navigation/Navigation';
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+    },
+  },
+  button: {
+    margin: theme.spacing(1),
+  }
+}))
 
 const theme = createTheme();
 
+const initialFValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+}
+
 const StudentSignup = () => {
+  const classes = useStyles()
+
+
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors }
+    if ('firstName' in fieldValues)
+      temp.firstName = fieldValues.firstName ? "" : "This field is required."
+    if ('lastName' in fieldValues)
+      temp.lastName = fieldValues.lastName ? "" : "This field is required."
+    if ('email' in fieldValues)
+      temp.email = (/$^|.+@.+..+./).test(fieldValues.email) ? "" : "Email is not valid."
+    if ('password' in fieldValues)
+      temp.password = fieldValues.password.length >= 6 ? "" : "Password must be 6 or more than 6 character"
+    setErrors({
+      ...temp
+    })
+
+    if (fieldValues == values)
+      return Object.values(temp).every(x => x == "")
+  }
+
+  const {
+    values,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm
+  } = useForm(initialFValues, true, validate);
+
   const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(validate()){
     const data = new FormData(e.currentTarget);
 
     const firstName = data.get('firstName');
@@ -50,7 +102,7 @@ const StudentSignup = () => {
       alert('Success');
       history.push('/');
 
-      if (data.status === 200) {
+     if (data.status === 200) {
         alert('Success');
         history.push('/');
         
@@ -62,6 +114,7 @@ const StudentSignup = () => {
     })
     
     e.target.reset();
+  }
   };
   return (
     <div className="container-std">
@@ -70,6 +123,7 @@ const StudentSignup = () => {
     <div component="main" maxWidth="xs">
       <CssBaseline />
       <Box
+      className="container"
         sx={{
           marginTop: 8,
           display: 'flex',
@@ -80,59 +134,53 @@ const StudentSignup = () => {
         <Avatar sx={{ m: 1, bgcolor: '#1dbf73' }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className="mb-5">
           Student Sign up
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
+        <Form onSubmit={handleSubmit} className={classes.root} >
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Controls.Input
                 name="firstName"
-                required
-                fullWidth
-                id="firstName"
                 label="First Name"
-                autoFocus
+                value={values.firstName}
+                onChange={handleInputChange}
+                error={errors.firstName}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
+            <Grid item xs={6}>
+              <Controls.Input
                 name="lastName"
-                autoComplete="lname"
+                label="Last Name"
+                value={values.lastName}
+                onChange={handleInputChange}
+                error={errors.lastName}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Controls.Input
+                label="Email"
                 name="email"
-                autoComplete="email"
+                required
+                value={values.email}
+                onChange={handleInputChange}
+                error={errors.email}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
+              <Controls.Input
                 label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                name="password"
+                value={values.password}
+                onChange={handleInputChange}
+                error={errors.password}
               />
             </Grid>
-          </Grid>
-          <Button
+            <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ ml:3, mt: 3, mb: 2 }}
           >
             Sign Up
           </Button>
@@ -143,7 +191,9 @@ const StudentSignup = () => {
               </Link>
             </Grid>
           </Grid>
-        </Box>
+          </Grid>
+          
+        </Form>
       </Box>
     </div>
   </ThemeProvider>

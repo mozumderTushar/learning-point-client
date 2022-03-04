@@ -10,15 +10,66 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Controls from "../Controls/Controls";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navigation from '../Shared/Navigation/Navigation';
 import { useHistory, useLocation } from 'react-router-dom';
 import './TeacherSignup.css';
 import { PhotoCamera } from '@material-ui/icons';
+import { useForm, Form } from '../FormMaterialUi/useForm';
 
 const theme = createTheme();
 
+const initialFValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  qualification: '',
+  subject: '',
+  charge: '',
+  time: '',
+  contact: '',
+}
+
 const TeacherSignup = () => {
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors }
+    if ('firstName' in fieldValues)
+      temp.firstName = fieldValues.firstName ? "" : "This field is required."
+    if ('lastName' in fieldValues)
+      temp.lastName = fieldValues.lastName ? "" : "This field is required."
+    if ('email' in fieldValues)
+      temp.email = (/$^|.+@.+..+./).test(fieldValues.email) ? "" : "Email is not valid."
+    if ('password' in fieldValues)
+      temp.password = fieldValues.password.length >= 6 ? "" : "Password must be 6 or more than 6 character"
+    if ('qualification' in fieldValues)
+      temp.qualification = fieldValues.qualification ? "" : "This field is required."
+    if ('subject' in fieldValues)
+      temp.subject = fieldValues.subject ? "" : "This field is required."
+    if ('charge' in fieldValues)
+      temp.charge = fieldValues.charge ? "" : "This field is required."
+    if ('time' in fieldValues)
+      temp.time = fieldValues.time ? "" : "This field is required."
+    if ('contact' in fieldValues)
+      temp.contact = fieldValues.contact.length === 11 ? "" : "Contact Number must be 11 digit."
+    setErrors({
+      ...temp
+    })
+
+    if (fieldValues == values)
+      return Object.values(temp).every(x => x == "")
+  }
+
+  const {
+    values,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm
+  } = useForm(initialFValues, true, validate);
+
+
   const [image, setImage] = React.useState("")
   const history = useHistory();
 
@@ -38,6 +89,7 @@ const TeacherSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(validate()){
     const data = new FormData(e.currentTarget);
 
     const firstName = data.get('firstName');
@@ -79,78 +131,94 @@ const TeacherSignup = () => {
       })
 
     e.target.reset();
+    }
   };
 
   return (
     <div className="container-teacher">
       <Navigation />
-      <ThemeProvider theme={ theme }>
+      <ThemeProvider theme={theme}>
         <div component="main" maxWidth="l">
           <CssBaseline />
           <Box
-            sx={ {
+            sx={{
               marginTop: 5,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-            } }
+            }}
           >
-            <Avatar sx={ { m: 1, bgcolor: '#1dbf73' } }>
+            <Avatar sx={{ m: 1, bgcolor: '#1dbf73' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Teacher Sign up
             </Typography>
-            <Box className="ml-md-5 mr-md-5" component="form" onSubmit={ handleSubmit } sx={ { mt: 3 } }>
-              <Grid container spacing={ 2 }>
-                <Grid item xs={ 12 } sm={ 4 }>
-                  <TextField
+            <Box className="ml-md-5 mr-md-5" component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={4}>
+                  <Controls.Input
                     autoComplete="fname"
                     name="firstName"
-                    required
+          
                     fullWidth
                     id="firstName"
                     label="First Name"
+                    value={values.firstName}
+                    onChange={handleInputChange}
+                    error={errors.firstName}
                     autoFocus
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 4 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={4}>
+                  <Controls.Input
+                    
                     fullWidth
                     id="lastName"
                     label="Last Name"
                     name="lastName"
+                    value={values.lastName}
+                    onChange={handleInputChange}
+                    error={errors.lastName}
                     autoComplete="lname"
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 4 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={4}>
+                  <Controls.Input
+                    
                     fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    value={values.email}
+                    onChange={handleInputChange}
+                    error={errors.email}
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={6}>
+                  <Controls.Input
+                    
                     fullWidth
                     id="qualification"
                     label="Qualification"
                     name="qualification"
                     autoComplete="qualification"
+                    value={values.qualification}
+                    onChange={handleInputChange}
+                    error={errors.qualification}
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField required
+                <Grid item xs={12} sm={6}>
+                  <TextField 
                     fullWidth
                     id="subject"
                     label="Which Subject Do You Want to Teach?"
                     name="subject"
                     autoComplete="subject"
+                    value={values.subject}
+                    onChange={handleInputChange}
+                    error={errors.subject}
                     select>
                     <MenuItem value="Physics" >Physics</MenuItem>
                     <MenuItem value="Chemistry">Chemistry</MenuItem>
@@ -169,71 +237,80 @@ const TeacherSignup = () => {
                     <MenuItem value="Civics">Civics</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={6}>
+                  <Controls.Input
+                    
                     fullWidth
                     id="charge"
                     label="Charge Per Lecture(in Taka)"
                     name="charge"
                     autoComplete="charge"
+                    value={values.charge}
+                    onChange={handleInputChange}
+                    error={errors.charge}
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={6}>
+                  <Controls.Input 
                     fullWidth
                     id="time"
                     label="Available Time"
                     defaultValue="10:00"
                     name="time"
                     type="time"
+                    value={values.time}
+                    onChange={handleInputChange}
+                    error={errors.time}
                     autoComplete="time"
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={6}>
+                  <Controls.Input
                     fullWidth
                     id="contact"
                     label="Contact Number"
                     name="contact"
+                    value={values.contact}
+                    onChange={handleInputChange}
+                    error={errors.contact}
                     autoComplete="contact"
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
-                  <TextField
-                    required
+                <Grid item xs={12} sm={6}>
+                  <Controls.Input
                     fullWidth
                     name="password"
                     label="Password"
                     type="password"
                     id="password"
+                    value={values.password}
+                    onChange={handleInputChange}
+                    error={errors.password}
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 6 }>
+                <Grid item xs={12} sm={6}>
                   <PhotoCamera className="camera" />
                   <Button
                     containerElement='label'
                     label='My Label'>
-                    <input type="file" onChange={ (e) => {
+                    <input type="file" onChange={(e) => {
                       uploadImage(e.target.files)
-                    } } />
+                    }} />
                   </Button>
                 </Grid>
               </Grid>
-              { image.length > 0 ? <Button
-                style={ { margin: '30px auto 10px', display: "flex", width: " 300px" } }
+              {image.length > 0 ? <Button
+                style={{ margin: '30px auto 10px', display: "flex", width: " 300px" }}
                 type="submit"
                 variant="contained"
-                sx={ { mt: 3, mb: 2 } }
+                sx={{ mt: 3, mb: 2 }}
               >
                 Sign Up
-              </Button> : '' }
+              </Button> : ''}
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="/log-in" variant="body2" style={{textDecoration: "none"}}>
+                  <Link href="/log-in" variant="body2" style={{ textDecoration: "none" }}>
                     Already have an account? Sign in
                   </Link>
                 </Grid>

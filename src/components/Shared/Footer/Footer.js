@@ -44,7 +44,7 @@ const Footer = () => {
           <span>About Learning Point</span>
           A Platform to connect student and teachers. All over the country.
           <br />
-          -Website Developed by Tushar & Mifta-
+          -Website Developed by Nabiha Maher-
         </p>
 
         <div className="footer-icons">
