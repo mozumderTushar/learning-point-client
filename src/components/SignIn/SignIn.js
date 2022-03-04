@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,12 +15,14 @@ import Navigation from '../Shared/Navigation/Navigation';
 import { useHistory, useLocation } from 'react-router-dom';
 
 
+
 const theme = createTheme();
 
 export default function SignIn() {
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
+  const [errors, setErrors] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,22 +43,19 @@ export default function SignIn() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        const { token, user } = data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        history.replace(from);
-        window.location.reload();
+        console.log(data.error);
+        setErrors(data.error);
 
-        if (data.status === 200) {
+        if (data.status === 200 || data.token !== undefined) {
           const { token, user } = data;
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
           history.replace(from);
-          history.push('/');
+          window.location.reload();
         } else {
           if (data.status === 400) {
-            console.log(data.error);
+            console.log(data.error.error);
+
           }
         }
       })
@@ -83,7 +82,7 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" onSubmit={ handleSubmit }  sx={ { mt: 1 } }>
+            <Box component="form" onSubmit={ handleSubmit } sx={ { mt: 1 } }>
               <TextField
                 margin="normal"
                 required
@@ -94,6 +93,7 @@ export default function SignIn() {
                 autoComplete="email"
                 autoFocus
               />
+
               <TextField
                 margin="normal"
                 required
@@ -114,7 +114,7 @@ export default function SignIn() {
               </Button>
               <Grid container>
                 <Grid item>
-                  <Link href="/registration-student" variant="body2" style={{textDecoration: "none"}}>
+                  <Link href="/registration-student" variant="body2" style={ { textDecoration: "none" } }>
                     { "Don't have an account? Sign Up" }
                   </Link>
                 </Grid>
