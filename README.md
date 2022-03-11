@@ -1,71 +1,43 @@
-# Getting Started with Create React App
+# LEARNING POINT -A ONLINE LEARNING PLATFORM.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![LEARNING](https://i.ibb.co/swywZr5/Capture.png)
 
-## Available Scripts
+**[LIVE WEBSITE](https://learning-point-e2c61.web.app/)** | **[LIVE API SERVER](https://desolate-meadow-70612.herokuapp.com)**
 
-In the project directory, you can run:
+## Features:
+*   Social web app for mantally disturbed people where they can share their story & also can get advices from expart.
 
-### `yarn start`
+##User:
+*   User need to register firstly by creating an account.
+*   Users are able to Login or Logout from the website at any time.
+*   Users are able to see the details of every teacher (Name, email, phone,subject and details).
+*   User can get online tuition from various teacher.
+*   Users are able to see the details of teacher and subject from their teachers section. And also they can reserved seat for online class.
+*   Users can handle everything from their dashboard.
+*   User can contact admin via contact us.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##Teacher:
+* Experts can view all the requests they get from the users in their dashboard for online classes.
+* Experts can send class link to them and other necessary notes.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+##Admin:
+* Admin have the power to controll everything.
+* Reserve and class everything gose through by admin - admin can approve and delete all request by students.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Front-end Technology :
+*   React.js
+*   Bootstrap4
+*   Material-UI
+*   CSS3
 
-### `yarn build`
+## Back-end Technology :
+*   Node.js
+*   Express.js
+*   Firebase Authentication
+*   MongoDB
+*   Heroku
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**[BACK END REPOSITORY](https://github.com/mozumderTushar/learning-point-server.git)**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# learning-point-client
